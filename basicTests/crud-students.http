@@ -1,0 +1,199 @@
+// CRUD STUDENTS
+
+// READ all students
+GET https://localhost/students
+###
+
+// CREATE first student
+# @name createFirstStudent
+POST https://localhost/students
+Content-Type: application/json
+
+{
+	"firstname": "John",
+	"lastname": "Doe",
+	"password": "SchwachesPasswort123",
+	"fieldID": "Fachbereich II",
+	"courseID": "Druck- und Medientechnik (B.Eng.)",
+	"phone": "+49 177 17834841",
+	"email": "s12345@bht-berlin.de",
+	"savedSearches": ["a", "b", "c"],
+	"favoriteCompanies": ["542c2b97bac0595474108b48", "542c2b97bac0595474108b47"],
+
+	"availability": [
+		{
+			"day": 3,
+			"beginn": "10:00",
+			"end": "19:00"
+		},
+		{
+			"day": 4,
+			"beginn": "10:00",
+			"end": "14:00"
+		},
+		{
+			"day": 4,
+			"beginn": "15:00",
+			"end": "19:00"
+		},
+		{
+			"day": 5,
+			"beginn": "10:00",
+			"end": "19:15"
+		}
+	]
+}
+###
+@studentID1 = {{createFirstStudent.response.body.studentID}}
+###
+
+// LOGIN student1 with correct credentials
+# @name loginStudent1Correct
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+	"email": "s12345@bht-berlin.de",
+	"password": "SchwachesPasswort123"
+}
+###
+@student1Token = {{loginStudent1Correct.response.headers.Authorization}}
+
+// CREATE second student
+# @name createSecondStudent
+POST https://localhost/students
+Content-Type: application/json
+
+{
+       "firstname": "Jane",
+        "lastname": "Dorian",
+		"password": "studi1234",
+        "fieldID": "Fachbereich II",
+        "courseID": "Medieninformatik (B.Sc.)",
+        "phone": "+49 177 698234234",
+        "email": "s12346@bht-berlin.de",
+        "availability": [
+                  {
+                    "day": 3,
+                    "beginn": "10:00",
+                    "end": "19:00"
+                  },
+                  {
+                    "day": 4,
+                    "beginn": "10:00",
+                    "end": "19:00"
+				  } 
+				]
+}
+###
+@studentID2 = {{createSecondStudent.response.body.studentID}}
+###
+
+// READ all students
+GET https://localhost/students
+###
+
+// READ student1 by mail
+GET https://localhost/students/s12345@bht-berlin.de
+###
+
+// LOGIN student2 with correct credentials
+# @name loginStudent2Correct
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+	"email": "s12346@bht-berlin.de",
+	"password": "studi1234"
+}
+###
+@student2Token = {{loginStudent2Correct.response.headers.Authorization}}
+
+// UPDATE student2 without Token
+PUT https://localhost/students/{{studentID2}}
+Authorization: {{student2Token}}
+Content-Type: application/json
+
+{	
+	"firstname": "peter",
+	"lastname": "horst",
+	"savedSearches": "c"
+}
+###
+
+// UPDATE student2 with correct Token
+PUT https://localhost/students/{{studentID2}}
+Authorization: {{student2Token}}
+Content-Type: application/json
+
+{	
+	"firstname": "peter",
+	"lastname": "horst",
+	"savedSearches": ["c"]
+}
+###
+
+// DELETE student1 one savedSearch
+DELETE https://localhost/students/{{studentID1}}/savedSearches
+Authorization: {{student1Token}}
+Content-Type: application/json
+
+{
+	"savedSearches": "b"
+}
+###
+
+// DELETE student1 one favoriteCompanies
+DELETE https://localhost/students/{{studentID1}}/favoriteCompanies
+Authorization: {{student1Token}}
+Content-Type: application/json
+
+{
+	"favoriteCompanies": "542c2b97bac0595474108b47"
+}
+###
+
+// UPDATE student1 availability
+PUT https://localhost/students/{{studentID1}}
+Authorization: {{student1Token}}
+Content-Type: application/json
+
+{
+	"availability": [
+		{
+        "day": 4,
+        "beginn": "15:00",
+        "end": "19:15",
+		"_id": "6398cf976041405240de6d76"
+      	}
+	]
+}
+###
+
+// DELETE student1 one availability
+DELETE https://localhost/students/{{studentID1}}/availability
+Authorization: {{student1Token}}
+Content-Type: application/json
+
+{
+	"availability": {
+        "day": 4,
+        "beginn": "15:00",
+        "end": "19:15",
+		"_id": "6398cf976041405240de6d76"
+    }
+}
+###
+
+// READ all students
+GET https://localhost/students
+###
+
+// DELETE student1 by ID
+DELETE https://localhost/students/{{studentID1}}
+Authorization: {{student1Token}}
+###
+
+// READ all students
+GET https://localhost/students
+###

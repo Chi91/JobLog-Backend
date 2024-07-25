@@ -1,0 +1,291 @@
+GET https://localhost/companies
+###
+GET https://localhost/jobs
+###
+GET https://localhost/students
+
+###
+
+// Ohne login
+
+# @name createStudent
+// Student erstellen möglich
+POST https://localhost/students
+Content-Type: application/json
+
+{
+	"firstname": "John",
+	"lastname": "Doe",
+	"password": "SchwachesPasswort123",
+	"fieldID": "Fachbereich II",
+	"courseID": "Druck- und Medientechnik (B.Eng.)",
+	"phone": "+49 177 17834841",
+	"email": "s12345@bht-berlin.de",
+	"savedSearches": ["a", "b"],
+	"availability": [
+		{
+			"day": 3,
+			"beginn": "10:00",
+			"end": "19:00"
+		},
+		{
+			"day": 4,
+			"beginn": "10:00",
+			"end": "19:00"
+		}
+	]
+}
+
+###
+@studentID = {{createStudent.response.body.studentID}}
+
+###
+# @name createcompany
+// company erstellen möglich
+POST https://localhost/companies
+Content-Type: application/json
+
+{
+	"companyName": "exampleCompany",
+	"password": "123",
+	"contactPerson": "Jane Doe",
+	"phone": "+25 13455334",
+	"email": "testEx@bht-berlin.de",
+	"address": "Hauptstraße 11, 12345 Berlin",
+	"homePage": "https://www.examplepage.com",
+	"applicationEmail": "applications@examleco.com",
+	"companyDescription": "Example Co produces sweatshirts."
+}
+###
+@companyID = {{createcompany.response.body.companyID}}
+
+###
+// Job erstellen ohne token nicht möglich
+POST https://localhost/jobs
+Content-Type: application/json
+
+{
+    "fieldIDs": "Fachbereich VI",
+    "courseIDs": "Medieninformatik (B.Sc.)",
+    "jobTitle": "backend Developer",
+	"salaryPerHour": "12.5"
+}
+
+###
+// Ändern der Company ohne token  - geht nicht 
+PUT https://localhost/companies/{{companyID}}
+Content-Type: application/json
+
+{
+	"contactPerson": "Paul"
+}
+###
+// Löschen der Company ohne Token - geht nicht 
+DELETE https://localhost/companies/{{companyID}}
+
+###
+
+//Ändern eines Stundenten ohne Token - geht nicht
+PUT https://localhost/students/{{studentID}}
+Content-Type: application/json
+
+{	
+	"firstname": "peter",
+	"lastname": "horst"
+}
+
+###
+//Löschen eines Stundenten ohne Token - geht nicht 
+DELETE  https://localhost/students/{{studentID}}
+###
+
+// Einen spezifischen Stundenten lesen ohne Token - geht
+GET https://localhost/students/{{studentID}}
+
+###
+// Eine spezifische Firma lesen ohne Token- geht 
+GET https://localhost/companies/{{companyID}}
+
+###
+
+//Anmeldung als Student 
+
+# @name loginStudentCorrent
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+    "email": "s12345@bht-berlin.de",
+    "password": "SchwachesPasswort123"
+
+}
+###
+
+@studentToken = {{loginStudentCorrent.response.headers.Authorization}}
+
+###
+
+// Job als eingeloggter Student erstellen - geht nicht  
+POST https://localhost/jobs
+Authorization: {{studentToken}}
+Content-Type: application/json
+
+{
+    "fieldIDs": "Fachbereich VI",
+    "courseIDs": "Medieninformatik (B.Sc.)",
+    "jobTitle": "backend Developer",
+	"salaryPerHour": "12.5"
+}
+###
+
+//Ändern eines Stundenten mit Token - geht 
+PUT https://localhost/students/{{studentID}}
+Authorization: {{studentToken}}
+Content-Type: application/json
+
+{	
+	"firstname": "Anna",
+	"lastname": "Schmidt"
+}
+
+###
+# @name createSecondStudent
+POST https://localhost/students
+Content-Type: application/json
+
+{
+	"firstname": "Hans",
+	"lastname": "Peter",
+	"password": "lol",
+	"courseID": "Druck- und Medientechnik (B.Eng.)",
+	"phone": "+49 177 17834841",
+	"email": "lol@gmail.com"
+	
+}
+
+###
+
+@secondStudentID = {{createSecondStudent.response.body.studentID}}
+
+###
+
+// Nur owner darf profiländern - geht nicht
+PUT https://localhost/students/{{secondStudentID}}
+Authorization: {{studentToken}}
+Content-Type: application/json
+
+{	
+	"firstname": "melanie",
+	"lastname": "krause"
+}
+###
+// Nur owner darf löschen - geht nicht
+DELETE  https://localhost/students/{{secondStudentID}}
+Authorization: {{studentToken}}
+
+###
+
+
+//Anmeldung als Admin 
+
+# @name loginAdminCorrent
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+    "email": "defaultadmin@joblog.de",
+    "password": "123"
+
+}
+###
+
+@adminToken = {{loginAdminCorrent.response.headers.Authorization}}
+
+###
+// Als Admin Student ändern -geht 
+PUT https://localhost/students/{{secondStudentID}}
+Authorization: {{adminToken}}
+Content-Type: application/json
+
+{	
+	"firstname": "ursula",
+	"lastname": "müller"
+}
+###
+// Als Admin Student löschen - geht
+DELETE  https://localhost/students/{{secondStudentID}}
+Authorization: {{adminToken}}
+
+###
+// Als Admin Company ändern - geht 
+PUT https://localhost/companies/{{companyID}}
+Authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+    "contactPerson": "Paul"  
+}
+
+###
+// Als Admin Company löschen - geht 
+DELETE https://localhost/companies/{{companyID}}
+Authorization: {{adminToken}}
+
+
+###
+// Einloggen als Company
+# @name loginCompany
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+    "email": "testEx@bht-berlin.de",
+    "password": "123"
+
+}
+
+###
+@companyToken = {{loginCompany.response.headers.Authorization}} 
+###
+
+// Zweite Company erstellen
+# @name testCompany
+POST https://localhost/companies
+Content-Type: application/json
+
+{
+	"companyName": "abc",
+	"password": "456",
+	"contactPerson": "Peter Parker",
+	"phone": "+25 13455834",
+	"email": "abc@bht-berlin.de",
+	"address": "Müllerstraße 11, 12345 Berlin",
+	"homePage": "https://www.abc.com",
+	"applicationEmail": "applications@abc.com",
+    "companyDescription": "abc abc abc abc "
+	
+}
+
+###
+@testCompanyID = {{testCompany.response.body.companyID}}
+
+###
+// Testen ob ein eingeloggte Company eine andere Comapny  ändern kann
+PUT https://localhost/companies/{{testCompanyID}}
+Authorization: {{companyToken}}
+Content-Type: application/json
+
+{
+    "contactPerson": "Bruce Wayne"
+}
+###
+// Testen ob ein eingeloggte Company eine andere Company löschen kann
+DELETE https://localhost/companies/{{testCompanyID}}
+Authorization: {{companyToken}}
+
+
+
+
+
+
+

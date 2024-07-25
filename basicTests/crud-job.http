@@ -1,0 +1,273 @@
+// CRUD JOBS
+
+// Read - empty companie
+GET https://localhost/companies
+###
+
+// CREATE companie
+# @name createCompay
+POST https://localhost/companies
+Content-Type: application/json
+
+{
+	"companyName": "exampleCompany",
+	"password": "123",
+	"contactPerson": "Jane Doe",
+	"phone": "+25 13455334",
+	"email": "testEx@bht-berlin.de",
+	"address": "Hauptstraße 11, 12345 Berlin",
+	"homePage": "https://www.examplepage.com",
+	"applicationEmail": "applications@examleco.com",
+	"companyDescription": "Example Co produces sweatshirts."
+}
+###
+
+@companyID = {{createCompay.response.body.companyID}}
+
+// Read - 1 companie
+GET https://localhost/companies
+###
+
+// Login as Company generate a Token
+# @name loginCompanyCorrect
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+    "email": "testEx@bht-berlin.de",
+    "password": "123"
+}
+
+###
+
+@companyToken = {{loginCompanyCorrect.response.headers.Authorization}}
+
+
+//READ - empty [] jobs
+GET  https://localhost/jobs?course=Medieninformatik%20(M.Sc.)
+###
+
+// POST - create first job
+# @name createFirstJobRequest
+POST https://localhost/jobs
+Authorization: {{companyToken}}
+Content-Type: application/json
+
+{
+    "fieldIDs": "Fachbereich VI",
+    "courseIDs": "Medieninformatik (B.Sc.)",
+    "jobTitle": "backend Developer",
+	"salaryPerHour": "12.5"
+}
+###
+@jobID = {{createFirstJobRequest.response.body.jobID}}
+###
+
+//READ - has one job in database
+GET  https://localhost/jobs
+###
+
+
+// POST - create second job geht nicht ohne token
+# @name createSecondJobRequest
+POST https://localhost/jobs
+Content-Type: application/json
+
+{
+   "fieldIDs": "Fachbereich 6",
+    "courseIDs": "Medieninformatik",
+    "jobTitle": "frontend Developer",
+	"salaryPerHour": "12.5"
+}
+###
+
+//READ - has 1 job in database
+GET  https://localhost/jobs/
+###
+
+
+GET https://localhost/jobs/{{jobID}}
+
+###
+
+//PUT - change property of first job
+PUT https://localhost/jobs/{{jobID}}
+Content-Type: application/json
+
+{
+    "jobTitle": "cyber security"
+}
+
+###
+// falsche jobidee
+//PUT - change property of first job
+PUT https://localhost/jobs/4213216546513
+Authorization: {{companyToken}}
+Content-Type: application/json
+
+{
+    "jobTitle": "cyber security"
+}
+
+###
+
+//PUT - change property of first job
+PUT https://localhost/jobs/{{jobID}}
+Authorization: {{companyToken}}
+Content-Type: application/json
+
+{
+    "jobTitle": "cyber security"
+}
+
+###
+
+GET https://localhost/jobs/{{jobID}}
+###
+
+// DELETE first job without token
+DELETE https://localhost/jobs/{{jobID}}
+
+
+###
+
+// DELETE first job
+DELETE https://localhost/jobs/{{jobID}}
+Authorization: {{companyToken}}
+
+###
+
+DELETE https://localhost/companies/{{companyID}}
+
+###
+
+// Read - empty companie
+GET https://localhost/companies
+###
+
+
+GET  https://localhost/jobs/
+###
+
+
+//Datenbank vorher löschen bevor 2ter Test
+
+
+// READ
+GET https://localhost/students
+###
+
+// CREATE
+POST https://localhost/students
+Content-Type: application/json
+
+{
+	"firstname": "John",
+	"lastname": "Doe",
+	"password": "SchwachesPasswort123",
+	"fieldID": "Fachbereich II",
+	"courseID": "Druck- und Medientechnik (B.Eng.)",
+	"phone": "+49 177 17834841",
+	"email": "s12345@bht-berlin.de",
+	"savedSearches": ["a", "b"],
+	"availability": [
+		{
+			"day": 3,
+			"beginn": "10:00",
+			"end": "19:00"
+		},
+		{
+			"day": 4,
+			"beginn": "10:00",
+			"end": "19:00"
+		}
+	],
+    "favoriteCompanies": [],
+	"fileStorage": [],
+    "profilPic": {}
+}
+###
+
+// READ
+GET https://localhost/students
+###
+
+// Login as Company generate a Token
+# @name loginStudentCorrect
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+    "email": "s12345@bht-berlin.de",
+    "password": "SchwachesPasswort123"
+}
+
+###
+
+@studentToken = {{loginStudentCorrect.response.headers.Authorization}}
+
+###
+
+//READ - empty jobs in database
+GET  https://localhost/jobs
+###
+
+// POST - create first job
+# @name createThirdJobRequest
+POST https://localhost/jobs
+Authorization: {{studentToken}}
+Content-Type: application/json
+
+{
+    "fieldIDs": "Fachbereich 6",
+    "courseIDs": "Medieninformatik",
+    "jobTitle": "UI/UX Developer",
+	
+}
+###
+
+###
+
+//READ - has one job in database
+GET  https://localhost/jobs
+###
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# GET  https://localhost/jobs/{{jobIDSecond}}
+# ###
+
+# DELETE  https://localhost/jobs/{{jobIDSecond}}
+
+# ###
+
+# GET  https://localhost/jobs
+# ###
+
+
+
+
+
+
+
+
+
+
+

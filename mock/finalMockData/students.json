@@ -1,0 +1,238 @@
+[
+	{
+		"firstname": "Nadine",
+		"lastname": "Brandes",
+		"password": "123",
+		"phone": "01761234567",
+		"email": "nadine@joblog.info",
+		"weeklyHours": "48",
+		"courseID": "Medieninformatik (B.Sc.)",
+        "fieldID": "Fachbereich VI",
+		"availability": [
+			{
+				"day": 1,
+				"beginn": "08:00",
+				"end": "20:00"
+			},
+			{
+				"day": 3,
+				"beginn": "08:00",
+				"end": "20:00"
+			},
+			{
+				"day": 6,
+				"beginn": "08:00",
+				"end": "20:00"
+			},
+			{
+				"day": 7,
+				"beginn": "08:00",
+				"end": "20:00"
+			}
+		],
+		"savedSearches": ["Testing", "UI", "UX"],
+		"favoriteCompanies": [],
+		"fileStorage": [],
+		"profilPic": {}
+	},
+	{
+		"firstname": "Gerrit",
+		"lastname": "Behrens",
+		"password": "123",
+		"phone": "01761234567",
+		"email": "gerrit@joblog.info",
+		"weeklyHours": "39.5",
+		"courseID": "Medieninformatik (B.Sc.)",
+        "fieldID": "Fachbereich VI",
+		"availability": [
+			{
+				"day": 2,
+				"beginn": "10:30",
+				"end": "18:30"
+			},
+			{
+				"day": 3,
+				"beginn": "10:45",
+				"end": "18:30"
+			},
+			{
+				"day": 4,
+				"beginn": "10:30",
+				"end": "18:30"
+			},
+			{
+				"day": 5,
+				"beginn": "10:15",
+				"end": "18:30"
+			}
+		],
+		"savedSearches": ["Werksstudent", "Frontend", "Backend"],
+		"favoriteCompanies": [],
+		"fileStorage": [],
+		"profilPic": {}
+	},
+	{
+		"firstname": "Leander",
+		"lastname": "Wendt",
+		"password": "123",
+		"phone": "01761234567",
+		"email": "leander@joblog.info",
+		"weeklyHours": "40",
+		"courseID": "Medieninformatik (B.Sc.)",
+        "fieldID": "Fachbereich VI",
+		"availability": [
+			{
+				"day": 1,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 2,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 3,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 4,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 5,
+				"beginn": "09:00",
+				"end": "17:00"
+			}
+		],
+		"savedSearches": ["Backend", "C++"],
+		"favoriteCompanies": [],
+		"fileStorage": [],
+		"profilPic": {}
+	},
+	{
+		"firstname": "Matthias",
+		"lastname": "Czernia",
+		"password": "123",
+		"phone": "01761234567",
+		"email": "matthias@joblog.info",
+		"weeklyHours": "39.5",
+		"courseID": "Medieninformatik (B.Sc.)",
+        "fieldID": "Fachbereich VI",
+		"availability": [
+			{
+				"day": 1,
+				"beginn": "06:30",
+				"end": "14:00"
+			},
+			{
+				"day": 2,
+				"beginn": "06:30",
+				"end": "14:30"
+			},
+			{
+				"day": 3,
+				"beginn": "06:45",
+				"end": "14:30"
+			},
+			{
+				"day": 4,
+				"beginn": "06:30",
+				"end": "14:30"
+			},
+			{
+				"day": 5,
+				"beginn": "06:15",
+				"end": "14:30"
+			}
+		],
+		"savedSearches": ["Citrix", "DSM", "Ivanti"],
+		"favoriteCompanies": [],
+		"fileStorage": [],
+		"profilPic": {}
+	},
+	{
+		"firstname": "Chi Thien",
+		"lastname": "Pham",
+		"password": "123",
+		"phone": "01761234567",
+		"email": "chi@joblog.info",
+		"weeklyHours": "40",
+		"courseID": "Medieninformatik (B.Sc.)",
+        "fieldID": "Fachbereich VI",
+		"availability": [
+			{
+				"day": 1,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 2,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 3,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 4,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 5,
+				"beginn": "09:00",
+				"end": "17:00"
+			}
+		],
+		"savedSearches": ["Backend", "iOS", "App"],
+		"favoriteCompanies": [],
+		"fileStorage": [],
+		"profilPic": {}
+	},
+	{
+		"firstname": "Jonas",
+		"lastname": "Spaller",
+		"password": "123",
+		"phone": "01761234567",
+		"email": "jonas@joblog.info",
+		"weeklyHours": "40",
+		"courseID": "Medieninformatik (M.Sc.)",
+        "fieldID": "Fachbereich VI",
+		"availability": [
+			{
+				"day": 1,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 2,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 3,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 4,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 5,
+				"beginn": "09:00",
+				"end": "17:00"
+			}
+		],
+		"savedSearches": ["Fullstack", "Veranstaltungstechnik"],
+		"favoriteCompanies": [],
+		"fileStorage": [],
+		"profilPic": {}
+	}
+]

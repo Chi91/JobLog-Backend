@@ -1,0 +1,61 @@
+// LOGIN ADMIN
+
+// Login als Admin mit falschen Daten
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+	"email": "falscheradmin@joblog.de",
+	"password": "falschesPasswort"
+}
+###
+
+// Login als Admin mit korrekten Daten
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+	"email": "defaultadmin@joblog.de",
+	"password": "123"
+}
+###
+
+// Login als Student mit falschen Daten
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+	"email": "falscherstudent@bht-berlin.de",
+	"password": "1234"
+}
+###
+
+// Login als Student mit korrekten Daten (muss natürlich vorher angelegt sein)
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+	"email": "s12345@bht-berlin.de",
+	"password": "SchwachesPasswort123"
+}
+###
+
+// Login als Company mit falschen Daten
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+	"email": "falsch@company.de",
+	"password": "1234"
+}
+###
+
+// Login als Company mit korrekten Daten (muss natürlich vorher angelegt sein)
+POST https://localhost/authenticate
+Content-Type: application/json
+
+{
+	"email": "testEx@bht-berlin.de",
+	"password": "123"
+}
+###

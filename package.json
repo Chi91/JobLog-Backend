@@ -1,0 +1,43 @@
+{
+	"name": "joblog-backend",
+	"version": "0.1.0",
+	"description": "The backend API for Joblog connecting to a MongoDB",
+	"main": "server.js",
+	"scripts": {
+		"test": "mocha --exit tests",
+		"start": "node server.js",
+		"test:auth": "mocha --exit ./tests/AuthenticateRouteTests.js",
+		"test:students": "mocha --exit ./tests/StudentsRouteTests.js",
+		"test:companies": "mocha --exit ./tests/CompaniesRouteTests.js",
+		"test:jobs": "mocha --exit ./tests/JobsRouteTests.js",
+		"mock": "node mock/MockDataScript.js",
+		"resetDB": "node mock/resetDBScript.js",
+		"mockPlaytest": "node mock/mockPlaytest.js",
+		"finalMock": "node mock/finalMock.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@gitlab.bht-berlin.de:joblog/joblog-backend.git"
+	},
+	"author": "Nadine Brandes, Gerrit Behrens, Chi Thien Pham, Leander Wendt, Matthias Czernia, Jonas Spaller",
+	"license": "ISC",
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"body-parser": "^1.20.1",
+		"cors": "^2.8.5",
+		"express": "^4.18.2",
+		"express-fileupload": "^1.4.0",
+		"express-zip": "^3.0.0",
+		"fs": "^0.0.1-security",
+		"https": "^1.0.0",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^6.6.6",
+		"nodemon": "^2.0.20",
+		"path": "^0.12.7"
+	},
+	"devDependencies": {
+		"mocha": "^10.1.0",
+		"pactum": "^3.2.3",
+		"supertest": "^6.3.1"
+	}
+}

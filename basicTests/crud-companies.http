@@ -1,0 +1,56 @@
+// CRUD COMPANIES
+
+// READ
+GET https://localhost/companies
+###
+// CREATE
+POST https://localhost/companies
+Content-Type: application/json
+
+{
+	"companyName": "exampleCompany",
+	"password": "123",
+	"contactPerson": "Jane Doe",
+	"phone": "+25 13455334",
+	"email": "testEx@bht-berlin.de",
+	"address": "Hauptstraße 11, 12345 Berlin",
+	"homePage": "https://www.examplepage.com",
+	"applicationEmail": "applications@examleco.com",
+	"companyDescription": "Example Co produces sweatshirts."
+}
+###
+
+// CREATE
+POST https://localhost/companies
+Content-Type: application/json
+
+{
+	"companyName": "ThiensWordl",
+	"password": "123",
+	"contactPerson": "Thien",
+	"phone": "+25 9999",
+	"email": "Thien@bht-berlin.de",
+	"address": "Berlin 11, 12345 Berlin",
+	"homePage": "https://www.lol.com",
+	"applicationEmail": "test@examleco.com",
+	"companyDescription": "Example Co produces sweatshirts."
+}
+###
+
+
+
+GET https://localhost/companies/636c1e0ea898968aba05f17b
+###
+
+// UPDATE
+PUT https://localhost/companies/636c1e0ea898968aba05f17b
+Content-Type: application/json
+
+{
+	"contactPerson": "Paul"
+}
+###
+
+// DELETE
+DELETE https://localhost/companies/636c1e0ea898968aba05f17b
+###

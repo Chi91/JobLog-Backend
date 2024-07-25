@@ -1,0 +1,19 @@
+version: '3.0'
+
+services:
+
+  database:
+    image: mongo:6.0.2
+    ports:
+      - 27017:27017
+    restart: on-failure
+
+  testenv:
+    depends_on:
+      - database
+    build: ./
+    restart: "no"
+    ports:
+      - 443:443
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://database:27017/

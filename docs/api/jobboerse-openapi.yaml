@@ -1,0 +1,1945 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Leander-Wendt/jobboerse-backend/1.0.0
+info:
+  description: This is an API for a job market backend
+  version: "1.0.0"
+  title: Jobboerse-Bacckend API
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: Authentication
+    description: Operations for authentication endpoints
+  - name: Students
+    description: Operations for student endpoints
+  - name: Companies
+    description: Operations for company endpoints
+  - name: Jobs
+    description: Operations for job endpoints
+  - name: Health
+    description: Operations for serverstatus endpoints
+  - name: Data
+    description: Operations for data endpoints
+  - name: Applications
+    description: Operations for data application (for a job)
+paths:
+  /authenticate:
+    post:
+      tags:
+        - Authentication
+      description: Authenticates a student or company
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            example:
+              { email: testEx@bht-berlin.de, password: SchwachesPasswort123 }
+      responses:
+        "200":
+          description: Json Web Token
+          content:
+            application/json:
+              schema:
+                type: string
+              example: { jwt: xxxxx.yyyyy.zzzzz }
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+  # ----------------------------------------------------------------------
+  /companies:
+    get:
+      tags:
+        - Companies
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Upper limit of returned objects
+      responses:
+        "200":
+          description: List with all companies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    companyID:
+                      type: integer
+                    companyName:
+                      type: string
+                    contactPerson:
+                      type: string
+                    phone:
+                      type: string
+                    email:
+                      type: string
+                    address:
+                      type: string
+                    homePage:
+                      type: string
+                    applicationEmail:
+                      type: string
+                    companyDescription:
+                      type: string
+                example:
+                  [
+                    {
+                      companyID: 1234,
+                      companyName: exampleCompany,
+                      contactPerson: Jane Doe,
+                      phone: +25 13455334,
+                      email: testEx@bht-berlin.de,
+                      address: "Hauptstraße 11, 12345 Berlin",
+                      homePage: "https://www.examplepage.com",
+                      applicationEmail: applications@examleco.com,
+                      companyDescription: Example Co produces sweatshirts.,
+                    },
+                    {},
+                  ]
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+    post:
+      tags:
+        - Companies
+      description: Adds a new company
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                companyName:
+                  type: string
+                password:
+                  type: string
+                contactPerson:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                address:
+                  type: string
+                homePage:
+                  type: string
+                applicationEmail:
+                  type: string
+                companyDescription:
+                  type: string
+              example:
+                {
+                  companyName: exampleCompany,
+                  password: schwachesPasswort123,
+                  contactPerson: Jane Doe,
+                  phone: +25 13455334,
+                  email: testEx@bht-berlin.de,
+                  address: "Hauptstraße 11, 12345 Berlin",
+                  homePage: "https://www.examplepage.com",
+                  applicationEmail: applications@examleco.com,
+                  companyDescription: Example Co produces sweatshirts.,
+                }
+      responses:
+        "201":
+          description: Company was created
+        "400":
+          description: Bad request
+        "409":
+          description: Company already exsists
+        "500":
+          description: Internal Server Error
+  /companies/{companyID}:
+    get:
+      tags:
+        - Companies
+      description: Gets company by companyID
+      parameters:
+        - in: path
+          name: companyID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        "200":
+          description: Company was found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyID:
+                    type: integer
+                  companyName:
+                    type: string
+                  contactPerson:
+                    type: string
+                  phone:
+                    type: string
+                  email:
+                    type: string
+                  address:
+                    type: string
+                  homePage:
+                    type: string
+                  applicationEmail:
+                    type: string
+                  companyDescription:
+                    type: string
+                example:
+                  {
+                    companyID: 1234,
+                    companyName: exampleCompany,
+                    contactPerson: Jane Doe,
+                    phone: +25 13455334,
+                    email: testEx@bht-berlin.de,
+                    address: "Hauptstraße 11, 12345 Berlin",
+                    homePage: "https://www.examplepage.com",
+                    applicationEmail: applications@examleco.com,
+                    companyDescription: Example Co produces sweatshirts.,
+                  }
+        "401":
+          description: Unauthorized
+        "404":
+          description: Company doesn't exist
+        "500":
+          description: Internal Server Error
+    put:
+      tags:
+        - Companies
+      description: Update a company by companyID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: companyID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the company to get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                companyName:
+                  type: string
+                password:
+                  type: string
+                contactPerson:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                address:
+                  type: string
+                homePage:
+                  type: string
+                applicationEmail:
+                  type: string
+                companyDescription:
+                  type: string
+              example:
+                {
+                  companyName: exampleCompany,
+                  password: schwachesPasswort123,
+                  contactPerson: Jane Doe,
+                  phone: +25 13455334,
+                  email: testEx@bht-berlin.de,
+                  address: "Hauptstraße 11, 12345 Berlin",
+                  homePage: "https://www.examplepage.com",
+                  applicationEmail: applications@examleco.com,
+                  companyDescription: Example Co produces sweatshirts.,
+                }
+      responses:
+        "202":
+          description: Company was updated
+        "400":
+          description: Company data for update is missing or wrong format
+        "401":
+          description: Unauthorized
+        "404":
+          description: Company doesn't exist
+        "409":
+          description: Chosen e-mail is already taken
+        "500":
+          description: Internal Server Error
+    delete:
+      tags:
+        - Companies
+      description: Deletes a company by companyID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: companyID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the company to get
+      responses:
+        "204":
+          description: Company was deleted
+        "401":
+          description: Unauthorized
+        "404":
+          description: Company doesn't exist
+        "500":
+          description: Internal Server Error
+  /companies/{companyID}/upload_picFile:
+    post:
+      tags:
+        - Companies
+      description: profil picture upload for one company
+      parameters:
+        - in: path
+          name: companyID
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: profil picture uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  companyID:
+                    type: integer
+                  companyName:
+                    type: string
+                  contactPerson:
+                    type: string
+                  phone:
+                    type: string
+                  email:
+                    type: string
+                  address:
+                    type: string
+                  homePage:
+                    type: string
+                  applicationEmail:
+                    type: string
+                  companyDescription:
+                    type: string
+                  profilPic:
+                    type: object
+                    properties:
+                      data:
+                        type: string
+                      size:
+                        type: string
+                      mimetype:
+                        type: string
+                      md5:
+                        type: string
+                  example:
+                    {
+                      companyID: 1234,
+                      companyName: exampleCompany,
+                      contactPerson: Jane Doe,
+                      phone: +25 13455334,
+                      email: testEx@bht-berlin.de,
+                      address: "Hauptstraße 11, 12345 Berlin",
+                      homePage: "https://www.examplepage.com",
+                      applicationEmail: applications@examleco.com,
+                      companyDescription: Example Co produces sweatshirts,
+                      profilPic:
+                        {
+                          data: "JVBERi0xLjQKJdP0zOEKJSBQREZzaGFycCBWZXJzaW9uIDAuO",
+                          size: "29649",
+                          mimetype: "application/pdf",
+                          md5: "b9e45cdb9221f1d581244e5ab8139aba",
+                        },
+                    }
+        "400":
+          description: no file were uploaded
+        "404":
+          description: Couldnt find company
+        "500":
+          description: Internal Server Error
+
+  # ----------------------------------------------------------------------
+  /jobs:
+    get:
+      tags:
+        - Jobs
+      description: Returns list of all jobs
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Upper limit of returned objects
+        - in: query
+          name: title
+          schema:
+            type: string
+          description: Jobtitle to search
+        - in: query
+          name: companyname
+          schema:
+            type: string
+          description: Find jobs provided by given company name
+        - in: query
+          name: company
+          schema:
+            type: string
+          description: Find jobs provided by given company ID
+        - in: query
+          name: field
+          schema:
+            type: string
+          description: Find jobs provided by given field ID
+        - in: query
+          name: course
+          schema:
+            type: string
+          description: Find jobs provided by given course ID
+        - in: query
+          name: tag
+          schema:
+            type: string
+          description: Find jobs provided by given tag(s)
+      responses:
+        "200":
+          description: List with all jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    jobID:
+                      type: integer
+                    companyID:
+                      type: integer
+                    companyName:
+                      type: string
+                    fieldIDs:
+                      type: array
+                      items:
+                        type: string
+                    courseIDs:
+                      type: array
+                      items:
+                        type: string
+                    tagList:
+                      type: array
+                      items:
+                        type: string
+                    jobTitle:
+                      type: string
+                    jobSummary:
+                      type: string
+                    jobType:
+                      type: string
+                    salaryPerHour:
+                      type: number
+                    vacation:
+                      type: integer
+                    weeklyTimeSlots:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          day:
+                            type: integer
+                          beginn:
+                            type: string
+                          end:
+                            type: string
+                    weeklyHours:
+                      type: number
+                    benefits:
+                      type: string
+                example:
+                  [
+                    {
+                      jobID: 1234,
+                      companyID: 1343534,
+                      companyName: "Pizza Co.",
+                      fieldIDs: ["Fakultät 6"],
+                      courseIDs:
+                        ["Druck und Medientechnik", "Medieninformatik"],
+                      tagList: ["Teilzeit", "Frontend"],
+                      jobTitle: "Frontend Entwickler*in",
+                      jobSummary: "Enwickle das Frontend unserer Homepage",
+                      jobType: Teilzeit,
+                      salaryPerHour: 15,
+                      vacation: 31,
+                      weeklyTimeSlots:
+                        [
+                          { day: 3, beginn: "10:00", end: "19:00" },
+                          { day: 4, beginn: "10:00", end: "19:00" },
+                        ],
+                      weeklyHours: 20,
+                      benefits: Sozialversicherung,
+                    },
+                    {},
+                  ]
+        "400":
+          description: Bad request
+        "500":
+          description: Internal Server Error
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Jobs
+      description: Adds a new job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  companyID:
+                    type: integer
+                  companyName:
+                    type: string
+                  fieldIDs:
+                    type: array
+                    items:
+                      type: string
+                  courseIDs:
+                    type: array
+                    items:
+                      type: string
+                  tagList:
+                    type: array
+                    items:
+                      type: string
+                  jobTitle:
+                    type: string
+                  jobSummary:
+                    type: string
+                  jobType:
+                    type: string
+                  salaryPerHour:
+                    type: number
+                  vacation:
+                    type: integer
+                  weeklyTimeSlots:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        day:
+                          type: integer
+                        beginn:
+                          type: string
+                        end:
+                          type: string
+                  weeklyHours:
+                    type: number
+                  benefits:
+                    type: string
+              example:
+                {
+                  companyID: 1343534,
+                  companyName: "Pizza Co.",
+                  fieldIDs: ["Fakultät 6"],
+                  courseIDs: ["Druck und Medientechnik", "Medieninformatik"],
+                  tagList: ["Teilzeit", "Frontend"],
+                  jobTitle: Frontend Entwickler*in,
+                  jobSummary: "Enwickle das Frontend unserer Homepage",
+                  jobType: Teilzeit,
+                  salaryPerHour: 15,
+                  vacation: 31,
+                  weeklyTimeSlots:
+                    [
+                      { day: 3, beginn: "10:00", end: "19:00" },
+                      { day: 4, beginn: "10:00", end: "19:00" },
+                    ],
+                  weeklyHours: 20,
+                  benefits: Sozialversicherung,
+                }
+      responses:
+        "201":
+          description: Job was created
+        "400":
+          description: Bad request
+        "409":
+          description: Job already exsists
+        "500":
+          description: Internal Server Error
+  /jobs/time:
+    post:
+      tags:
+        - Jobs
+      description: Returns list of jobs with matching weeklyTimeSlots as given student availability
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Upper limit of returned objects
+        - in: query
+          name: companyname
+          schema:
+            type: string
+          description: Find jobs provided by given company name
+        - in: query
+          name: company
+          schema:
+            type: string
+          description: Find jobs provided by given company ID
+        - in: query
+          name: fieldIDs
+          schema:
+            type: string
+          description: Find jobs provided by given field ID
+        - in: query
+          name: courseIDs
+          schema:
+            type: string
+          description: Find jobs provided by given course ID
+        - in: query
+          name: tag
+          schema:
+            type: string
+          description: Find jobs provided by given tag(s)
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  availability:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        day:
+                          type: integer
+                        beginn:
+                          type: string
+                        end:
+                          type: string
+              example:
+                {
+                  availability:
+                    [
+                      { day: 3, beginn: "10:00", end: "19:00" },
+                      { day: 4, beginn: "10:00", end: "19:00" },
+                    ],
+                }
+      responses:
+        "200":
+          description: List with all jobs with matching worktimes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    jobID:
+                      type: integer
+                    companyID:
+                      type: integer
+                    companyName:
+                      type: string
+                    fieldIDs:
+                      type: array
+                      items:
+                        type: string
+                    courseIDs:
+                      type: array
+                      items:
+                        type: string
+                    tagList:
+                      type: array
+                      items:
+                        type: string
+                    jobTitle:
+                      type: string
+                    jobSummary:
+                      type: string
+                    jobType:
+                      type: string
+                    salaryPerHour:
+                      type: number
+                    vacation:
+                      type: integer
+                    weeklyTimeSlots:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          day:
+                            type: integer
+                          beginn:
+                            type: string
+                          end:
+                            type: string
+                    weeklyHours:
+                      type: number
+                    benefits:
+                      type: string
+                example:
+                  [
+                    {
+                      jobID: 1234,
+                      companyID: 1343534,
+                      companyName: "Pizza Co.",
+                      fieldIDs: ["Fakultät 6"],
+                      courseIDs:
+                        ["Druck und Medientechnik", "Medieninformatik"],
+                      tagList: ["Teilzeit", "Frontend"],
+                      jobTitle: "Frontend Entwickler*in",
+                      jobSummary: "Enwickle das Frontend unserer Homepage",
+                      jobType: Teilzeit,
+                      salaryPerHour: 15,
+                      vacation: 31,
+                      weeklyTimeSlots:
+                        [
+                          { day: 3, beginn: "10:00", end: "19:00" },
+                          { day: 4, beginn: "10:00", end: "19:00" },
+                        ],
+                      weeklyHours: 20,
+                      benefits: Sozialversicherung,
+                    },
+                    {},
+                  ]
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+  /jobs/{jobID}:
+    get:
+      tags:
+        - Jobs
+      description: Gets job by jobID
+      parameters:
+        - in: path
+          name: jobID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the job to get
+      responses:
+        "200":
+          description: Job was found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    companyID:
+                      type: integer
+                    companyName:
+                      type: string
+                    fieldIDs:
+                      type: array
+                      items:
+                        type: string
+                    courseIDs:
+                      type: array
+                      items:
+                        type: string
+                    tagList:
+                      type: array
+                      items:
+                        type: string
+                    jobTitle:
+                      type: string
+                    jobSummary:
+                      type: string
+                    jobType:
+                      type: string
+                    salaryPerHour:
+                      type: number
+                    vacation:
+                      type: integer
+                    weeklyTimeSlots:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          day:
+                            type: integer
+                          beginn:
+                            type: string
+                          end:
+                            type: string
+                    weeklyHours:
+                      type: number
+                    benefits:
+                      type: string
+                example:
+                  {
+                    companyID: 1343534,
+                    companyName: "Pizza Co.",
+                    fieldIDs: ["Fakultät 6"],
+                    courseIDs: ["Druck und Medientechnik", "Medieninformatik"],
+                    tagList: ["Teilzeit", "Frontend"],
+                    jobTitle: Frontend Entwickler*in,
+                    jobSummary: "Enwickle das Frontend unserer Homepage",
+                    jobType: Teilzeit,
+                    salaryPerHour: 15,
+                    vacation: 31,
+                    weeklyTimeSlots:
+                      [
+                        { day: 3, beginn: "10:00", end: "19:00" },
+                        { day: 4, beginn: "10:00", end: "19:00" },
+                      ],
+                    weeklyHours: 20,
+                    benefits: Sozialversicherung,
+                  }
+        "401":
+          description: Unauthorized
+        "404":
+          description: Job doesn't exist
+        "500":
+          description: Internal Server Error
+    put:
+      tags:
+        - Jobs
+      description: Update a job by jobID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: jobID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the job to get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  companyName:
+                    type: string
+                  fieldIDs:
+                    type: array
+                    items:
+                      type: string
+                  courseIDs:
+                    type: array
+                    items:
+                      type: string
+                  tagList:
+                    type: array
+                    items:
+                      type: string
+                  jobTitle:
+                    type: string
+                  jobSummary:
+                    type: string
+                  jobType:
+                    type: string
+                  salaryPerHour:
+                    type: number
+                  vacation:
+                    type: integer
+                  weeklyTimeSlots:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        day:
+                          type: integer
+                        beginn:
+                          type: string
+                        end:
+                          type: string
+                  weeklyHours:
+                    type: number
+                  benefits:
+                    type: string
+              example:
+                {
+                  companyName: "Pizza Corp.",
+                  fieldIDs: ["Fakultät 6"],
+                  courseIDs: ["Druck und Medientechnik", "Medieninformatik"],
+                  tagList: ["Teilzeit", "Frontend"],
+                  jobTitle: Frontend Entwickler*in,
+                  jobSummary: "Enwickle das Frontend unserer Homepage",
+                  jobType: Teilzeit,
+                  salaryPerHour: 15,
+                  vacation: 31,
+                  weeklyTimeSlots:
+                    [
+                      { day: 3, beginn: "10:00", end: "19:00" },
+                      { day: 4, beginn: "10:00", end: "19:00" },
+                    ],
+                  weeklyHours: 20,
+                  benefits: Sozialversicherung,
+                }
+      responses:
+        "202":
+          description: Job was updated
+        "400":
+          description: Job data for update is missing or wrong format
+        "401":
+          description: Unauthorized
+        "404":
+          description: Job doesn't exist
+        "500":
+          description: Internal Server Error
+    delete:
+      tags:
+        - Jobs
+      description: Deletes a job by jobID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: jobID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the job to get
+      responses:
+        "204":
+          description: Job was deleted
+        "401":
+          description: Unauthorized
+        "404":
+          description: Job doesn't exist
+        "500":
+          description: Internal Server Error
+  # ----------------------------------------------------------------------
+  /students:
+    get:
+      tags:
+        - Students
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Upper limit of returned objects
+        - in: query
+          name: field
+          schema:
+            type: string
+          description: Find students provided by given field ID
+        - in: query
+          name: course
+          schema:
+            type: string
+          description: Find students provided by given course ID
+      responses:
+        "200":
+          description: List with all students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    studentID:
+                      type: number
+                    fieldID:
+                      type: string
+                    courseID:
+                      type: string
+                    firstname:
+                      type: string
+                    lastname:
+                      type: string
+                    phone:
+                      type: string
+                    email:
+                      type: string
+                    availability:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          day:
+                            type: integer
+                          beginn:
+                            type: string
+                          end:
+                            type: string
+                    fileStorage:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type: object
+                          properties:
+                            data:
+                              type: string
+                            name:
+                              type: string
+                            size:
+                              type: string
+                            mimetype:
+                              type: string
+                            md5:
+                              type: string
+                example:
+                  [
+                    {
+                      studentID,
+                      1221fab,
+                      firstname: John,
+                      lastname: Doe,
+                      fieldID: Fakultät 6,
+                      courseID: Druck und Medientechnik,
+                      phone: +49 177 17834841,
+                      email: s12345@bht-berlin.de,
+                      availability:
+                        [
+                          { day: 3, beginn: "10:00", end: "19:00" },
+                          { day: 4, beginn: "10:00", end: "19:00" },
+                        ],
+                      fileStorage:
+                        [
+                          {
+                            {
+                              data: "JVBERi0xLjQKJdP0zOERKSBQREZzaGFycCBWZXJzaW9i",
+                            },
+                            { name: "StundenplanplanWS20_21.pdf" },
+                            { size: "29649" },
+                            { mimetype: "application/pdf" },
+                            { md5: "b9e45cdb9221f1d581244e5a8139aba" },
+                          },
+                        ],
+                    },
+                    {},
+                  ]
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+    post:
+      tags:
+        - Students
+      description: Adds a new student
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  fieldID:
+                    type: string
+                  courseID:
+                    type: string
+                  firstname:
+                    type: string
+                  lastname:
+                    type: string
+                  password:
+                    type: string
+                  phone:
+                    type: string
+                  email:
+                    type: string
+                  availability:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        day:
+                          type: integer
+                        beginn:
+                          type: string
+                        end:
+                          type: string
+                  fileStorage:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type: object
+                        properties:
+                          data:
+                            type: string
+                          name:
+                            type: string
+                          size:
+                            type: string
+                          mimetype:
+                            type: string
+                          md5:
+                            type: string
+              example:
+                {
+                  firstname: John,
+                  lastname: Doe,
+                  password: SchwachesPasswort123,
+                  fieldID: Fakultät 6,
+                  courseID: Druck und Medientechnik,
+                  phone: +49 177 17834841,
+                  email: s12345@bht-berlin.de,
+                  availability:
+                    [
+                      { day: 3, beginn: "10:00", end: "19:00" },
+                      { day: 4, beginn: "10:00", end: "19:00" },
+                    ],
+                }
+      responses:
+        "201":
+          description: Student was created
+        "400":
+          description: Bad request
+        "409":
+          description: E-mail is already taken
+        "500":
+          description: Internal Server Error
+  /students/{studentID}:
+    get:
+      tags:
+        - Students
+      description: Gets student by studentID
+      parameters:
+        - in: path
+          name: studentID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the student to get
+      responses:
+        "200":
+          description: Student was found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fieldID:
+                      type: string
+                    courseID:
+                      type: string
+                    firstname:
+                      type: string
+                    lastname:
+                      type: string
+                    phone:
+                      type: string
+                    email:
+                      type: string
+                    availability:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          day:
+                            type: integer
+                          beginn:
+                            type: string
+                          end:
+                            type: string
+                    fileStorage:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type: object
+                          properties:
+                            data:
+                              type: string
+                            name:
+                              type: string
+                            size:
+                              type: string
+                            mimetype:
+                              type: string
+                            md5:
+                              type: string
+                example:
+                  {
+                    firstname: John,
+                    lastname: Doe,
+                    fieldID: Fakultät 6,
+                    courseID: Druck und Medientechnik,
+                    phone: +49 177 17834841,
+                    email: s12345@bht-berlin.de,
+                    availability:
+                      [
+                        { day: 3, beginn: "10:00", end: "19:00" },
+                        { day: 4, beginn: "10:00", end: "19:00" },
+                      ],
+                    fileStorage:
+                      [
+                        {
+                          {
+                            data: "JVBERi0xLjQKJdP0zOERKSBQREZzaGFycCBWZXJzaW9i",
+                          },
+                          { name: "StundenplanplanWS20_21.pdf" },
+                          { size: "29649" },
+                          { mimetype: "application/pdf" },
+                          { md5: "b9e45cdb9221f1d581244e5a8139aba" },
+                        },
+                      ],
+                  }
+        "401":
+          description: Unauthorized
+        "404":
+          description: Student doesn't exist
+        "500":
+          description: Internal Server Error
+    put:
+      tags:
+        - Students
+      description: Update a student by studentID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: studentID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the student to get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  fieldID:
+                    type: string
+                  courseID:
+                    type: string
+                  firstname:
+                    type: string
+                  lastname:
+                    type: string
+                  password:
+                    type: string
+                  phone:
+                    type: string
+                  email:
+                    type: string
+                  availability:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        day:
+                          type: integer
+                        beginn:
+                          type: string
+                        end:
+                          type: string
+                  fileStorage:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type: object
+                        properties:
+                          data:
+                            type: string
+                          name:
+                            type: string
+                          size:
+                            type: string
+                          mimetype:
+                            type: string
+                          md5:
+                            type: string
+              example:
+                {
+                  firstname: John,
+                  lastname: Doe,
+                  password: SchwachesPasswort123,
+                  fieldID: Fakultät 6,
+                  courseID: Druck und Medientechnik,
+                  phone: +49 177 17834841,
+                  email: s12345@bht-berlin.de,
+                  availability:
+                    [
+                      { day: 3, beginn: "10:00", end: "19:00" },
+                      { day: 4, beginn: "10:00", end: "19:00" },
+                    ],
+                }
+      responses:
+        "202":
+          description: Student was updated
+        "400":
+          description: Student data for update is missing or wrong format
+        "401":
+          description: Unauthorized
+        "404":
+          description: Student doesn't exist
+        "409":
+          description: E-mail is already taken
+        "500":
+          description: Internal Server Error
+    delete:
+      tags:
+        - Students
+      description: Deletes a student by studentID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: studentID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the student to get
+      responses:
+        "204":
+          description: Student was deleted
+        "401":
+          description: Unauthorized
+        "404":
+          description: Student doesn't exist
+        "500":
+          description: Internal Server Error
+  /applications:
+    post:
+      tags:
+        - Applications
+      description: Adds a new application
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  studentID:
+                    type: integer
+                  jobID:
+                    type: integer
+                  visibleDocuments:
+                    type: array
+                    items:
+                      type: integer
+              example:
+                {
+                  studentID: 1234566,
+                  jobID: 1289731923,
+                  visibleDocuments: [123324, 1928345, 129381],
+                }
+      responses:
+        "201":
+          description: Application was created
+        "400":
+          description: Bad request
+        "401":
+          description: Not Authorized
+        "500":
+          description: Internal Server Error
+  /applications/{applicationID}:
+    put:
+      tags:
+        - Applications
+      description: Adds visibleDocuments
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: applicationID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the application to get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  visibleDocuments:
+                    type: array
+                    items:
+                      type: integer
+              example: { visibleDocuments: [123324, 1928345, 129381] }
+      responses:
+        "202":
+          description: visibleDocuments added
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Application doesn't exist
+        "500":
+          description: Internal Server Error
+    delete:
+      tags:
+        - Applications
+      description: Deletes an application by applicationID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: applicationID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the application to get
+      responses:
+        "204":
+          description: Application was deleted
+        "401":
+          description: Unauthorized
+        "404":
+          description: Application doesn't exist
+        "500":
+          description: Internal Server Error
+  /applications/jobs/{jobID}:
+    get:
+      tags:
+        - Applications
+      description: Gets applications by jobID
+      parameters:
+        - in: path
+          name: jobID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the job of the applications to get
+      responses:
+        "200":
+          description: Applications were found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    jobID:
+                      type: integer
+                    studentID:
+                      type: integer
+                    applicationID:
+                      type: integer
+                    visibleDocuments:
+                      type: array
+                      items:
+                        type: integer
+                example:
+                  [
+                    {
+                      jobID: 12398344,
+                      studentID: 1928592,
+                      applicationID: 1892389450,
+                      visibleDocuments: [1293123, 3192383, 192334],
+                    },
+                    {},
+                  ]
+        "401":
+          description: Unauthorized
+        "404":
+          description: no appications on job with given jobID exist
+        "500":
+          description: Internal Server Error
+  /applications/students/{studentID}:
+    get:
+      tags:
+        - Applications
+      description: Gets applications by studentID
+      parameters:
+        - in: path
+          name: studentID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the student of the applications to get
+      responses:
+        "200":
+          description: Applications were found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    jobID:
+                      type: integer
+                    studentID:
+                      type: integer
+                    applicationID:
+                      type: integer
+                    visibleDocuments:
+                      type: array
+                      items:
+                        type: integer
+                example:
+                  [
+                    {
+                      jobID: 12398344,
+                      studentID: 1928592,
+                      applicationID: 1892389450,
+                      visibleDocuments: [1293123, 3192383, 192334],
+                    },
+                    {},
+                  ]
+        "401":
+          description: Unauthorized
+        "404":
+          description: no appications from student with given studentID exist
+        "500":
+          description: Internal Server Error
+  /applications/{applicationID}/deletePermission:
+    put:
+      tags:
+        - Applications
+      description: delete visibleDocuments
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: applicationID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the application to get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  visibleDocuments:
+                    type: array
+                    items:
+                      type: integer
+              example: { visibleDocuments: [123, 1349854, 98134143] }
+      responses:
+        "204":
+          description: visibleDocuments were deleted
+        "401":
+          description: Unauthorized
+        "404":
+          description: Application doesn't exist
+        "500":
+          description: Internal Server Error
+  /healthz:
+    get:
+      tags:
+        - Health
+      responses:
+        "200":
+          description: Message with server status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  { message: "All systems operational", dbstatus: "connected" }
+        "500":
+          description: Internal Server Error
+
+  /students/{studentID}/upload_file:
+    post:
+      tags:
+        - Students
+      description: file upload for one student
+      parameters:
+        - in: path
+          name: studentID
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: file uploaded
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fieldID:
+                      type: string
+                    courseID:
+                      type: string
+                    firstname:
+                      type: string
+                    lastname:
+                      type: string
+                    phone:
+                      type: string
+                    email:
+                      type: string
+                    availability:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          day:
+                            type: integer
+                          beginn:
+                            type: string
+                          end:
+                            type: string
+                    fileStorage:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type: object
+                          properties:
+                            data:
+                              type: string
+                            name:
+                              type: string
+                            size:
+                              type: string
+                            mimetype:
+                              type: string
+                            md5:
+                              type: string
+              example:
+                {
+                  firstname: John,
+                  lastname: Doe,
+                  fieldID: Fakultät 6,
+                  courseID: Druck und Medientechnik,
+                  phone: +49 177 17834841,
+                  email: s12345@bht-berlin.de,
+                  availability:
+                    [
+                      { day: 3, beginn: "10:00", end: "19:00" },
+                      { day: 4, beginn: "10:00", end: "19:00" },
+                    ],
+                  fileStorage:
+                    [
+                      {
+                        {
+                          data: "JVBERi0xLjQKJdP0zOERKSBQREZzaGFycCBWZXJzaW9i",
+                        },
+                        { name: "StundenplanplanWS20_21.pdf" },
+                        { size: "29649" },
+                        { mimetype: "application/pdf" },
+                        { md5: "b9e45cdb9221f1d581244e5a8139aba" },
+                      },
+                    ],
+                }
+        "400":
+          description: Student doesn't exist or filename is already taken
+        "500":
+          description: Internal Server Error
+
+  /students/{studentID}/upload_picFile:
+    post:
+      tags:
+        - Students
+      description: profil picture upload for one student
+      parameters:
+        - in: path
+          name: studentID
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: profil picture uploaded
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fieldID:
+                      type: string
+                    courseID:
+                      type: string
+                    firstname:
+                      type: string
+                    lastname:
+                      type: string
+                    phone:
+                      type: string
+                    email:
+                      type: string
+                    availability:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          day:
+                            type: integer
+                          beginn:
+                            type: string
+                          end:
+                            type: string
+                    profilPic:
+                      type: object
+                      properties:
+                        data:
+                          type: string
+                        size:
+                          type: string
+                        mimetype:
+                          type: string
+                        md5:
+                          type: string
+              example:
+                {
+                  firstname: John,
+                  lastname: Doe,
+                  fieldID: Fakultät 6,
+                  courseID: Druck und Medientechnik,
+                  phone: +49 177 17834841,
+                  email: s12345@bht-berlin.de,
+                  availability:
+                    [
+                      { day: 3, beginn: "10:00", end: "19:00" },
+                      { day: 4, beginn: "10:00", end: "19:00" },
+                    ],
+                  profilPic:
+                    [
+                      { data: "JVBERi0xLjQKJdP0zOERKSBQREZzaGFycCBWZXJzaW9i" },
+                      { size: "29649" },
+                      { mimetype: "application/pdf" },
+                      { md5: "b9e45cdb9221f1d581244e5a8139aba" },
+                    ],
+                }
+        "400":
+          description: Student missing
+        "404":
+          description: Couldnt find student
+        "500":
+          description: Internal Server Error
+
+  /students/{studentID}/savedSearches:
+    delete:
+      tags:
+        - Students
+      description: delete one students savedSearch
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: studentID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the student to get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  savedSearches:
+                    type: string
+              example: { savedSearches: "Praktikum" }
+      responses:
+        "204":
+          description: savedSearch was deleted
+        "401":
+          description: Unauthorized
+        "404":
+          description: Student doesn't exist
+        "500":
+          description: Internal Server Error
+  /students/{studentID}/favoriteCompanies:
+    delete:
+      tags:
+        - Students
+      description: delete one students favoriteCompany
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: studentID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the student to get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  favoriteCompany:
+                    type: ObjectID
+              example: { favoriteCompany: "<ObjectID>" }
+      responses:
+        "204":
+          description: favoriteCompany was deleted
+        "401":
+          description: Unauthorized
+        "404":
+          description: Student doesn't exist
+        "500":
+          description: Internal Server Error
+  /students/{studentID}/availability:
+    delete:
+      tags:
+        - Students
+      description: delete one students availability
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: studentID
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the student to get
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  availability:
+                    type: object
+              example:
+                {
+                  "availability":
+                    {
+                      "day": 4,
+                      "beginn": "15:00",
+                      "end": "19:00",
+                      "_id": "638649f2ba264e7bfe6c8e7b",
+                    },
+                }
+      responses:
+        "204":
+          description: availability was deleted
+        "401":
+          description: Unauthorized
+        "404":
+          description: Student doesn't exist
+        "500":
+          description: Internal Server Error
+  /data/fields:
+    get:
+      tags:
+        - Data
+      responses:
+        "200":
+          description: List with all fieldIDs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                example:
+                  {
+                    FACHBEREICH_I: "Fachbereich I",
+                    FACHBEREICH_II: "Fachbereich II",
+                  }
+        "500":
+          description: Internal Server Error
+  /data/courses:
+    get:
+      tags:
+        - Data
+      responses:
+        "200":
+          description: List with all courseIDs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                example:
+                  {
+                    MEDIENINFORMATIK_BSC: "Medieninformatik (B.Sc.)",
+                    MEDIENINFORMATIK_MSC: "Medieninformatik (M.Sc.)",
+                  }
+        "500":
+          description: Internal Server Error
+  /data/both:
+    get:
+      tags:
+        - Data
+      responses:
+        "200":
+          description: List with all fieldIDs and related courseIDs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                example:
+                  {
+                    "Fachbereich VI":
+                      ["Medieninformatik (B.Sc.)", "Medieninformatik (M.Sc.)"],
+                  }
+        "500":
+          description: Internal Server Error
+components:
+  securitySchemes:
+    bearerAuth: # <-- arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

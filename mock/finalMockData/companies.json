@@ -1,0 +1,35 @@
+[
+	{
+		"companyName": "Pizza Co.",
+		"contactPerson": "Super Mario",
+		"phone": "01111 4958134910",
+		"email": "pizza@joblog.info",
+		"address": "Pizzastraße 1, 12345 Pizzahausen",
+		"homePage": "https://www.google.com/",
+		"password": "123",
+		"applicationEmail": "applications@pizzaco.de",
+		"companyDescription": "Wir sind ein online Bestellservice für Pizza."
+	},
+	{
+		"companyName": "Jeans Co.",
+		"contactPerson": "Gean Denim",
+		"phone": "0146 192834405",
+		"email": "jeans@joblog.info",
+		"address": "Jeansallee 2, 52344 Hosendorf",
+		"homePage": "https://duckduckgo.com/",
+		"password": "123",
+		"applicationEmail": "applications@jeansco.de",
+		"companyDescription": "Wir produzieren handgemachte Hosen."
+	},
+	{
+		"companyName": "Mathefy",
+		"contactPerson": "Mathe Mann",
+		"phone": "0147 164234505",
+		"email": "mathefy@joblog.info",
+		"address": "Mathestraße 42, 314159 Mathetown",
+		"homePage": "https://www.danieljung.io",
+		"password": "123",
+		"applicationEmail": "applications@mathefy.de",
+		"companyDescription": "Wir lieben die Mathematik."
+	}
+]

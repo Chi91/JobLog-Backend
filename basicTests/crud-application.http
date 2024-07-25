@@ -1,0 +1,51 @@
+// CRUD COMPANIES
+
+// READ
+GET https://localhost/companies
+###
+// CREATE
+POST https://localhost/companies
+Content-Type: application/json
+
+{
+	"companyName": "exampleCompany",
+	"password": "123",
+	"contactPerson": "Jane Doe",
+	"phone": "+25 13455334",
+	"email": "testEx@bht-berlin.de",
+	"address": "Hauptstraße 11, 12345 Berlin",
+	"homePage": "https://www.examplepage.com",
+	"applicationEmail": "applications@examleco.com",
+	"companyDescription": "Example Co produces sweatshirts."
+}
+###
+
+// CREATE
+POST https://localhost/applications
+Content-Type: application/json
+
+{
+	"studentID": "638ca0cb7405fb6c2123c85a",
+	"jobID": "638ca0cb7405fb6c2123c86e"
+}
+###
+
+
+
+GET https://localhost/applications/jobs/638ca0cb7405fb6c2123c86e
+###
+GET https://localhost/applications/students/638ca0cb7405fb6c2123c85a
+###
+
+// UPDATE
+PUT https://localhost/localhost/applications/636c1e0ea898968aba05f17b
+Content-Type: application/json
+
+{
+	"vibileDocumentes": ["Paul"]
+}
+###
+
+// DELETE
+DELETE https://localhost/applications/638ca20e95f7c92d415a4ccf/
+###

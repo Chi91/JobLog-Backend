@@ -1,0 +1,32 @@
+// CRUD ADMINS
+
+// CREATE
+POST https://localhost/admins
+Content-Type: application/json
+
+{
+	"mail": "testadmin@joblog.de",
+	"password": "asdf",
+	"isAdmin": true
+}
+###
+
+// READ
+GET https://localhost/admins
+###
+
+GET https://localhost/admins/defaultadmin@joblog.de
+###
+
+// UPDATE
+PUT https://localhost/admins/testadmin@joblog.de
+Content-Type: application/json
+
+{
+	"password": "abcdef"
+}
+###
+
+// DELETE
+DELETE https://localhost/admins/testadmin@joblog.de
+###

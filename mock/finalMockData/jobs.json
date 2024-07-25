@@ -1,0 +1,261 @@
+[
+	{
+		"companyID": "",
+		"companyName": "Pizza Co.",
+		"fieldIDs": ["Fachbereich VI"],
+		"courseIDs": ["Medieninformatik (M.Sc.)", "Medieninformatik (B.Sc.)"],
+		"tagList": ["Frontend", "Teilzeit", "Praktikum"],
+		"jobTitle": "Praktikant*in in der Frontendentwicklung",
+		"jobSummary": "Wir suchen Verstärkung für unser Entwicklerteam",
+		"jobType": "Teilzeit",
+		"salaryPerHour": 15.5,
+		"vacation": 30,
+		"weeklyHours": 10,
+		"benefits": "Kostenlose Pizza",
+		"weeklyTimeSlots": [
+			{
+				"day": 6,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 7,
+				"beginn": "09:00",
+				"end": "17:00"
+			}
+		]
+	},
+	{
+		"companyID": "",
+		"companyName": "Pizza Co.",
+		"fieldIDs": ["Fachbereich VI"],
+		"courseIDs": ["Medieninformatik (M.Sc.)", "Medieninformatik (B.Sc.)"],
+		"tagList": ["Backend", "Vollzeit", "Praktikum"],
+		"jobTitle": "Praktikant*in in der Backendentwicklung",
+		"jobSummary": "Wir suchen Verstärkung für unser Entwicklerteam",
+		"jobType": "Teilzeit",
+		"salaryPerHour": 15.5,
+		"vacation": 30,
+		"weeklyHours": 20,
+		"benefits": "Kostenlose Pizza",
+		"weeklyTimeSlots": [
+			{
+				"day": 1,
+				"beginn": "09:00",
+				"end": "16:30"
+			},
+			{
+				"day": 2,
+				"beginn": "09:00",
+				"end": "16:30"
+			},
+			{
+				"day": 3,
+				"beginn": "09:00",
+				"end": "16:30"
+			},
+			{
+				"day": 4,
+				"beginn": "09:00",
+				"end": "16:30"
+			},
+			{
+				"day": 5,
+				"beginn": "09:00",
+				"end": "16:30"
+			},
+			{
+				"day": 6,
+				"beginn": "09:00",
+				"end": "16:30"
+			},
+			{
+				"day": 7,
+				"beginn": "09:00",
+				"end": "16:30"
+			}
+		]
+	},
+	{
+		"companyID": "",
+		"companyName": "Pizza Co.",
+		"tagList": ["Bäcker", "Vollzeit", "Praktikum"],
+		"jobTitle": "Pizzabäcker*in",
+		"jobSummary": "Wir suchen Verstärkung für unsere Küche",
+		"jobType": "Vollzeit",
+		"salaryPerHour": 15.5,
+		"vacation": 30,
+		"weeklyHours": 38,
+		"benefits": "Kostenlose Pizza",
+		"weeklyTimeSlots": [
+			{
+				"day": 1,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 2,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 3,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 4,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 5,
+				"beginn": "09:00",
+				"end": "17:00"
+			}
+		]
+	},
+	{
+		"companyID": "",
+		"companyName": "Jeans Co.",
+		"fieldIDs": ["Fachbereich VI"],
+		"courseIDs": ["Medieninformatik (M.Sc.)", "Medieninformatik (B.Sc.)"],
+		"tagList": ["Backend", "Vollzeit", "Praktikum"],
+		"jobTitle": "Praktikant*in in der Backendentwicklung",
+		"jobSummary": "Wir suchen Verstärkung für unser Entwicklerteam",
+		"jobType": "Teilzeit",
+		"salaryPerHour": 15.5,
+		"vacation": 30,
+		"weeklyHours": 40,
+		"benefits": "Kostenloser Kaffee und Mate",
+		"weeklyTimeSlots": [
+			{
+				"day": 1,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 2,
+				"beginn": "09:00",
+				"end": "17:00"
+			},
+			{
+				"day": 3,
+				"beginn": "07:00",
+				"end": "16:00"
+			},
+			{
+				"day": 4,
+				"beginn": "07:00",
+				"end": "16:00"
+			},
+			{
+				"day": 5,
+				"beginn": "10:00",
+				"end": "18:00"
+			}
+		]
+	},
+	{
+		"companyID": "",
+		"companyName": "Jeans Co.",
+		"tagList": ["Verkauf", "Teilzeit"],
+		"jobTitle": "Verkäufer*in im Jeansladen",
+		"jobSummary": "Wir suchen Verstärkung für unser Verkaufsteam",
+		"jobType": "Teilzeit",
+		"salaryPerHour": 15.5,
+		"vacation": 30,
+		"weeklyHours": 20,
+		"benefits": "10% Rabatt auf Jeans",
+		"weeklyTimeSlots": [
+			{
+				"day": 4,
+				"beginn": "12:00",
+				"end": "20:00"
+			},
+			{
+				"day": 5,
+				"beginn": "12:00",
+				"end": "20:00"
+			},
+			{
+				"day": 6,
+				"beginn": "14:00",
+				"end": "22:00"
+			}
+		]
+	},
+	{
+		"companyID": "",
+		"companyName": "Jeans Co.",
+		"tagList": ["Verkauf", "Minijob", "Praktikum"],
+		"jobTitle": "Verkäufer*in im Jeansladen",
+		"jobSummary": "Wir suchen Verstärkung für unser Verkaufsteam",
+		"jobType": "Minijob",
+		"salaryPerHour": 15.5,
+		"vacation": 30,
+		"weeklyHours": 10,
+		"benefits": "10% Rabatt auf Jeans",
+		"weeklyTimeSlots": [
+			{
+				"day": 1,
+				"beginn": "09:00",
+				"end": "14:30"
+			},
+			{
+				"day": 2,
+				"beginn": "09:00",
+				"end": "14:30"
+			},
+			{
+				"day": 3,
+				"beginn": "08:15",
+				"end": "20:00"
+			},
+			{
+				"day": 5,
+				"beginn": "15:45",
+				"end": "18:00"
+			}
+		]
+	},
+	{
+		"companyID": "",
+		"companyName": "Mathefy",
+		"tagList": ["Chemie", "Vollzeit", "Praktikum"],
+		"jobTitle": "Labor Praktikant",
+		"jobSummary": "Wir suchen Verstärkung für unser Laborteam",
+		"jobType": "Vollzeit",
+		"salaryPerHour": 15.5,
+		"vacation": 30,
+		"weeklyHours": 38,
+		"benefits": "10% Rabatt auf Mathenachhilfe",
+		"weeklyTimeSlots": [
+			{
+				"day": 1,
+				"beginn": "12:00",
+				"end": "20:30"
+			},
+			{
+				"day": 2,
+				"beginn": "12:00",
+				"end": "20:30"
+			},
+			{
+				"day": 3,
+				"beginn": "12:00",
+				"end": "20:30"
+			},
+			{
+				"day": 4,
+				"beginn": "12:00",
+				"end": "20:30"
+			},
+			{
+				"day": 5,
+				"beginn": "12:00",
+				"end": "20:30"
+			}
+		]
+	}
+]
